@@ -26,6 +26,10 @@ const ControlDirection = (e) => {
 
 const startGame = () => {
     let htmlMarkup = `<div class="apple" style="grid-area: ${appleY} / ${appleX}"></div>`;
+    
+    // Updating the snake's head position based on the current velocity
+    snakeX += velocityX;
+    snakeY += velocityY;
     htmlMarkup += `<div class="head" style="grid-area: ${snakeY} / ${snakeX}"></div>`;
     playBoard.innerHTML = htmlMarkup;
 }
