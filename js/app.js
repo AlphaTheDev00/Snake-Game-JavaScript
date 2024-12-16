@@ -2,6 +2,7 @@ const playBoard = document.querySelector(".play-board");
 
 let appleX, appleY;
 let snakeX = 5, snakeY = 10;
+let velocityX = 0, velocityY = 0;
 
 const changeApplePosition = () => {
 
@@ -15,23 +16,33 @@ const ControlDirection = (e) => {
     if(e.key === "ArrowUp")  {
         velocityX = 0;
         velocityY = -1;
-    }else if(e.key === "Arrowleft") {
+    }else if(e.key === "ArrowDown") {
+        velocityX = 0;
+        velocityY = 1;
+    }else if(e.key === "ArrowLeft") {
         velocityX = -1;
         velocityY = 0;
     }else if(e.key === "ArrowRight") {
         velocityX = 1;
         velocityY = 0;
     }
+
 }
 
-const startGame = () => {
+const StarGame = () => {
     let htmlMarkup = `<div class="apple" style="grid-area: ${appleY} / ${appleX}"></div>`;
+
+    if(snakeX === appleX && snakeY === appleY) {
+        changeApplePosition()
+    }
     
     // Updating the snake's head position based on the current velocity
     snakeX += velocityX;
     snakeY += velocityY;
+
     htmlMarkup += `<div class="head" style="grid-area: ${snakeY} / ${snakeX}"></div>`;
     playBoard.innerHTML = htmlMarkup;
 }
 changeApplePosition();
-startGame();
+setInterval(StarGame, 125);
+document.addEventListener("keydown", ControlDirection);
