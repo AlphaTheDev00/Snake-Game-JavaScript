@@ -1,5 +1,6 @@
 const playBoard = document.querySelector(".play-board");
 
+let gameOver = false;
 let appleX, appleY;
 let snakeX = 5, snakeY = 10;
 let snakeBody = [];
@@ -51,6 +52,11 @@ const StarGame = () => {
     // Updating the snake's head position based on the current velocity
     snakeX += velocityX;
     snakeY += velocityY;
+
+    // Checking of the snake's head is out of the wall, if so getting GamOver to true
+    if(snakeX <= 0 || snakeX > 30 || snakeX <= 0 || snakeX > 30) {
+        gameOver = true;
+    }
 
     for (let i = 0; i < snakeBody.length; i++) {
         //adding a div for each part of the snake's snakeBody
