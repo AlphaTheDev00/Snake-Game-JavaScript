@@ -2,6 +2,7 @@ const playBoard = document.querySelector(".play-board");
 
 let appleX, appleY;
 let snakeX = 5, snakeY = 10;
+let snakeBody = [];
 let velocityX = 0, velocityY = 0;
 
 const changeApplePosition = () => {
@@ -31,6 +32,12 @@ const ControlDirection = (e) => {
 
 const StarGame = () => {
     let htmlMarkup = `<div class="apple" style="grid-area: ${appleY} / ${appleX}"></div>`;
+    
+    // Checking if the snake Head in the same grid as the apple.
+    if(snakeX === appleX && snakeY === appleY) {
+        changeApplePosition();
+        snakeBody.push([appleX, appleY]);
+    }
 
     if(snakeX === appleX && snakeY === appleY) {
         changeApplePosition()
