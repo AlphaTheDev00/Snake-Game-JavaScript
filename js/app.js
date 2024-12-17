@@ -37,6 +37,7 @@ const StarGame = () => {
     if(snakeX === appleX && snakeY === appleY) {
         changeApplePosition();
         snakeBody.push([appleX, appleY]);
+       
     }
 
     if(snakeX === appleX && snakeY === appleY) {
@@ -47,7 +48,11 @@ const StarGame = () => {
     snakeX += velocityX;
     snakeY += velocityY;
 
-    htmlMarkup += `<div class="head" style="grid-area: ${snakeY} / ${snakeX}"></div>`;
+    for (let i = 0; i < snakeBody.length; i++) {
+        //adding a div for each part of the snake's snakeBody
+        htmlMarkup += `<div class="head" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
+
+    }
     playBoard.innerHTML = htmlMarkup;
 }
 changeApplePosition();
