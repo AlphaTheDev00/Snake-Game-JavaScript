@@ -5,12 +5,20 @@ let appleX, appleY;
 let snakeX = 5, snakeY = 10;
 let snakeBody = [];
 let velocityX = 0, velocityY = 0;
+let setIntervalId;
 
 const changeApplePosition = () => {
 
     //Passing a random 0 - 30 value as food postion
     appleX = Math.floor(Math.random() * 30) + 1;
     appleY = Math.floor(Math.random() * 30) + 1;
+}
+
+const handleGameOver = () => {
+    clearInterval(setIntervalId);
+    // Clearing the timer and reloading the page on game over
+    alert("Game Over! Press OK to replay...");
+    location.reload();
 }
 
 const ControlDirection = (e) => {
@@ -31,14 +39,17 @@ const ControlDirection = (e) => {
 
 }
 
-const StarGame = () => {
+const StartGame = () => {
+    if(gameOver) return handleGameOver(); 
     let htmlMarkup = `<div class="apple" style="grid-area: ${appleY} / ${appleX}"></div>`;
     
     // Checking if the snake Head in the same grid as the apple.
     if(snakeX === appleX && snakeY === appleY) {
         changeApplePosition();
-        snakeBody.push([appleX, appleY]);
-        console.log(snakeBody);
+        snakeBody.push([...snakeBody[snakeBody.length - 1]]);
+
+        // snakeBody.push([appleX, appleY]);
+        // console.log(snakeBody);
        
     }
 
@@ -54,7 +65,7 @@ const StarGame = () => {
     snakeY += velocityY;
 
     // Checking of the snake's head is out of the wall, if so getting GamOver to true
-    if(snakeX <= 0 || snakeX > 30 || snakeX <= 0 || snakeX > 30) {
+    if(snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
         gameOver = true;
     }
 
@@ -66,7 +77,7 @@ const StarGame = () => {
     playBoard.innerHTML = htmlMarkup;
 }
 changeApplePosition();
-setInterval(StarGame, 125);
+setIntervalId = setInterval(StartGame, 125);
 document.addEventListener("keydown", ControlDirection);
 
 
