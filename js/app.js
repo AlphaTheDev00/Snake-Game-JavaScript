@@ -37,12 +37,16 @@ const StarGame = () => {
     if(snakeX === appleX && snakeY === appleY) {
         changeApplePosition();
         snakeBody.push([appleX, appleY]);
+        console.log(snakeBody);
        
     }
 
-    if(snakeX === appleX && snakeY === appleY) {
-        changeApplePosition()
+    for (let i = snakeBody.length - 1; i > 0; i--) {
+        //Shifting forward the values of the elements om the snake body by one
+        snakeBody[i] = snakeBody[i - 1];
     }
+
+   snakeBody[0] = [snakeX, snakeY]; //Setting first Element of snake body to current snake position
     
     // Updating the snake's head position based on the current velocity
     snakeX += velocityX;
@@ -58,3 +62,10 @@ const StarGame = () => {
 changeApplePosition();
 setInterval(StarGame, 125);
 document.addEventListener("keydown", ControlDirection);
+
+
+
+
+// if(snakeX === appleX && snakeY === appleY) {
+//     changeApplePosition()
+// }
